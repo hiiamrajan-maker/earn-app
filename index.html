@@ -25,16 +25,12 @@ body {
   text-align: center;
 }
 
-h1 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.balance {
-  font-size: 24px;
-  margin: 15px 0;
-  font-weight: bold;
-  color: #4e73df;
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 button {
@@ -45,7 +41,11 @@ button {
   border-radius: 12px;
   font-size: 16px;
   cursor: pointer;
-  transition: 0.3s;
+}
+
+.login-btn {
+  background: #4e73df;
+  color: white;
 }
 
 .earn-btn {
@@ -53,45 +53,58 @@ button {
   color: white;
 }
 
-.withdraw-btn {
+.logout-btn {
   background: #e74a3b;
   color: white;
 }
 
-button:hover {
-  opacity: 0.85;
+.balance {
+  font-size: 22px;
+  margin: 15px 0;
+  font-weight: bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>💰 Earn App</h1>
-  <p>Tap button to earn coins</p>
+<div class="container" id="loginBox">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Enter Username">
+  <input type="password" id="password" placeholder="Enter Password">
+  <button class="login-btn" onclick="login()">Login</button>
+</div>
 
+<div class="container" id="appBox" style="display:none;">
+  <h2>💰 Earn App</h2>
   <div class="balance">Coins: <span id="coins">0</span></div>
-
   <button class="earn-btn" onclick="earn()">Earn 10 Coins</button>
-  <button class="withdraw-btn" onclick="withdraw()">Withdraw</button>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
 
 <script>
 let coins = 0;
+
+function login() {
+  let user = document.getElementById("username").value;
+  let pass = document.getElementById("password").value;
+
+  if(user !== "" && pass !== "") {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("appBox").style.display = "block";
+  } else {
+    alert("Please enter username and password");
+  }
+}
 
 function earn() {
   coins += 10;
   document.getElementById("coins").innerText = coins;
 }
 
-function withdraw() {
-  if(coins >= 100){
-    alert("Withdrawal request sent!");
-    coins = 0;
-    document.getElementById("coins").innerText = coins;
-  } else {
-    alert("Minimum 100 coins required!");
-  }
+function logout() {
+  document.getElementById("appBox").style.display = "none";
+  document.getElementById("loginBox").style.display = "block";
 }
 </script>
 
