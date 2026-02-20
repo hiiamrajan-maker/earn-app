@@ -1,95 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Earn App</title>
+<title>Earn Money App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
-  text-align: center;
-  font-family: Arial;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
-  color: white;
-  padding-top: 50px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
+
 .container {
   background: white;
-  color: black;
   width: 90%;
-  margin: auto;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  max-width: 350px;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
 }
-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  margin-top: 15px;
+
+h1 {
+  margin-bottom: 10px;
+  color: #333;
 }
-.earn-btn {
-  background: green;
-  color: white;
-}
-.withdraw-btn {
-  background: orange;
-  color: white;
-}
-button:disabled {
-  background: gray;
-}
-#points {
+
+.balance {
   font-size: 24px;
-  margin: 20px;
+  margin: 15px 0;
+  font-weight: bold;
+  color: #4e73df;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.earn-btn {
+  background: #1cc88a;
+  color: white;
+}
+
+.withdraw-btn {
+  background: #e74a3b;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.85;
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
-<h2>Earn Money App</h2>
+  <h1>💰 Earn App</h1>
+  <p>Tap button to earn coins</p>
 
-<div id="points">Points: 0</div>
+  <div class="balance">Coins: <span id="coins">0</span></div>
 
-<button class="earn-btn" onclick="earn()">Watch Ad & Earn</button>
-<br>
-<button class="withdraw-btn" onclick="withdraw()">Withdraw</button>
-
+  <button class="earn-btn" onclick="earn()">Earn 10 Coins</button>
+  <button class="withdraw-btn" onclick="withdraw()">Withdraw</button>
 </div>
 
 <script>
-let points = localStorage.getItem("points");
-
-if (points === null) {
-  points = 0;
-} else {
-  points = parseInt(points);
-}
-
-document.getElementById("points").innerHTML = "Points: " + points;
+let coins = 0;
 
 function earn() {
-  let btn = document.querySelector(".earn-btn");
-  btn.disabled = true;
-  btn.innerHTML = "Watching Ad...";
-
-  setTimeout(function() {
-    points += 10;
-    localStorage.setItem("points", points);
-    document.getElementById("points").innerHTML = "Points: " + points;
-    alert("Ad Watched Successfully! +10 Points");
-    btn.disabled = false;
-    btn.innerHTML = "Watch Ad & Earn";
-  }, 3000);
+  coins += 10;
+  document.getElementById("coins").innerText = coins;
 }
 
 function withdraw() {
-  if (points >= 100) {
-    alert("Withdrawal Request Sent Successfully!");
-    points -= 100;
-    localStorage.setItem("points", points);
-    document.getElementById("points").innerHTML = "Points: " + points;
+  if(coins >= 100){
+    alert("Withdrawal request sent!");
+    coins = 0;
+    document.getElementById("coins").innerText = coins;
   } else {
-    alert("Minimum 100 Points Required to Withdraw!");
+    alert("Minimum 100 coins required!");
   }
 }
 </script>
