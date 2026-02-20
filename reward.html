@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Earn App</title>
+<style>
+body {
+  text-align: center;
+  font-family: Arial;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  padding-top: 50px;
+}
+.container {
+  background: white;
+  color: black;
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+.earn-btn {
+  background: green;
+  color: white;
+}
+.withdraw-btn {
+  background: orange;
+  color: white;
+}
+button:disabled {
+  background: gray;
+}
+#points {
+  font-size: 24px;
+  margin: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Earn Money App</h2>
+
+<div id="points">Points: 0</div>
+
+<button class="earn-btn" onclick="earn()">Watch Ad & Earn</button>
+<br>
+<button class="withdraw-btn" onclick="withdraw()">Withdraw</button>
+
+</div>
+
+<script>
+let points = localStorage.getItem("points");
+
+if (points === null) {
+  points = 0;
+} else {
+  points = parseInt(points);
+}
+
+document.getElementById("points").innerHTML = "Points: " + points;
+
+function earn() {
+  let btn = document.querySelector(".earn-btn");
+  btn.disabled = true;
+  btn.innerHTML = "Watching Ad...";
+
+  setTimeout(function() {
+    points += 10;
+    localStorage.setItem("points", points);
+    document.getElementById("points").innerHTML = "Points: " + points;
+    alert("Ad Watched Successfully! +10 Points");
+    btn.disabled = false;
+    btn.innerHTML = "Watch Ad & Earn";
+  }, 3000);
+}
+
+function withdraw() {
+  if (points >= 100) {
+    alert("Withdrawal Request Sent Successfully!");
+    points -= 100;
+    localStorage.setItem("points", points);
+    document.getElementById("points").innerHTML = "Points: " + points;
+  } else {
+    alert("Minimum 100 Points Required to Withdraw!");
+  }
+}
+</script>
+
+</body>
+</html>
